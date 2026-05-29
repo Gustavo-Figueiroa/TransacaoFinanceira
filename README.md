@@ -56,7 +56,7 @@ python main.py
 ### Executar os testes
 
 ```bash
-python -m unittest test_transacao.py -v
+python -m unittest test_main.py -v
 ```
 
 ## Cobertura dos testes
