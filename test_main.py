@@ -4,10 +4,7 @@ from decimal import Decimal
 from datetime import datetime
 from main import Account, AccountRepository, TransactionService, TransactionDto
 
-
-# ==============================================================
 # TESTES DE UNIDADE - TransacaoFinanceira
-# ==============================================================
 
 class TestAccount(unittest.TestCase):
     """Testes para a entidade Account."""
@@ -97,9 +94,8 @@ class TestTransactionService(unittest.TestCase):
     def _make_tx(self, corr_id, origin, dest, amount):
         return TransactionDto(corr_id, "09/09/2023 14:00:00", origin, dest, amount)
 
-    # ----------------------------------------------------------
     # Casos de sucesso
-    # ----------------------------------------------------------
+ 
     def test_transfer_success_deducts_origin(self):
         """Transferência bem-sucedida deve debitar a origem."""
         self.service.transfer(self._make_tx(1, 1, 2, Decimal("40.00")))
@@ -116,9 +112,7 @@ class TestTransactionService(unittest.TestCase):
         self.assertEqual(self.repo.get_by_id(1).balance, Decimal("0"))
         self.assertEqual(self.repo.get_by_id(2).balance, Decimal("150.00"))
 
-    # ----------------------------------------------------------
     # Casos de falha / cancelamento
-    # ----------------------------------------------------------
     def test_transfer_insufficient_balance_does_not_deduct(self):
         """Saldo insuficiente não deve debitar a origem."""
         self.service.transfer(self._make_tx(3, 2, 1, Decimal("100.00")))
@@ -155,9 +149,9 @@ class TestTransactionService(unittest.TestCase):
         self.service.transfer(self._make_tx(8, 1, 9999, Decimal("10")))
         self.assertEqual(self.repo.get_by_id(1).balance, Decimal("100.00"))
 
-    # ----------------------------------------------------------
+
     # Cenário da tarefa original (linha do tempo completa)
-    # ----------------------------------------------------------
+   
     def test_scenario_transaction_1_efetivada(self):
         """
         Transação 1: conta 938485762 (saldo 180) envia 150 para 2147483649.
@@ -194,9 +188,8 @@ class TestTransactionService(unittest.TestCase):
         svc.transfer(tx)
         self.assertEqual(repo.get_by_id(675869708).balance, Decimal("4900"))
 
-    # ----------------------------------------------------------
+    
     # Teste de concorrência (race condition)
-    # ----------------------------------------------------------
     def test_concurrent_transfers_no_race_condition(self):
         """
         Dispara 100 threads tentando transferir R$1 da conta 1 para conta 2 simultaneamente.
