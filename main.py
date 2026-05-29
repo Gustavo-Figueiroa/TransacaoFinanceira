@@ -4,9 +4,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Dict, Optional
 
-# ==========================================
 # 1. ENTIDADES (Domain)
-# ==========================================
+
 class Account:
     def __init__(self, account_id: int, initial_balance: Decimal):
         if initial_balance < Decimal("0"):
@@ -33,10 +32,8 @@ class TransactionDto:
         """Converte a string de data para objeto datetime para ordenação cronológica."""
         return datetime.strptime(self.datetime_str, "%d/%m/%Y %H:%M:%S")
 
-
-# ==========================================
 # 2. REPOSITÓRIO (Data Access)
-# ==========================================
+
 class AccountRepository:
     def __init__(self):
         self._accounts: Dict[int, Account] = {}
@@ -63,10 +60,8 @@ class AccountRepository:
     def save(self, account: Account):
         self._accounts[account.account_id] = account
 
-
-# ==========================================
 # 3. SERVIÇO (Business Logic)
-# ==========================================
+
 class TransactionService:
     def __init__(self, repository: AccountRepository):
         self.repository = repository
@@ -111,11 +106,8 @@ class TransactionService:
                         f"Novos saldos: Conta Origem: {origin.balance} | "
                         f"Conta Destino: {destination.balance}"
                     )
-
-
-# ==========================================
 # 4. EXECUÇÃO PRINCIPAL
-# ==========================================
+
 def main():
     transactions_data = [
         {"correlation_id": 1, "datetime_str": "09/09/2023 14:15:00", "origin_account_id": 938485762,  "destination_account_id": 2147483649, "amount": Decimal("150")},
