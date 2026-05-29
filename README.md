@@ -26,7 +26,7 @@ O projeto foi desenvolvido para atender a um case técnico de refatoração, cor
 ## Estrutura do projeto
 
 - `main.py`: contém as entidades, repositório, serviço de transações e execução principal.
-- `test_transacao.py`: contém os testes unitários da solução.
+- `test_main.py`: contém os testes unitários da solução.
 
 ## Regras de negócio implementadas
 
